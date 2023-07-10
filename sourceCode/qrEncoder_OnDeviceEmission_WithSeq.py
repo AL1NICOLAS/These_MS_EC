@@ -5,29 +5,30 @@
 #  Après avoir constitué une archive qui ensuite est compressée, le binaire
 #  du zip est encodé en base64. L'information base64 est découpée afin de générer
 #  autant de QRCodes que nécessaires :
-import base64
+import base45
 import shutil
 import tarfile
 import time
 import segno
 import logging
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
+PATTERN_SEP = os.getenv("PATTERN_SEP")
 # CONSTANTES environnement
-PATH_ROOT = "../."   # "/home/lanig/PycharmProjects/TheseProUttMS_EFC"
+PATH_ROOT = "../."   # "/home/lanig/PycharmProjects/These_MS_EC"
 FOLDER_IN = f"{PATH_ROOT}/in_files_to_exfiltrate"
 FOLDER_QR = f"{PATH_ROOT}/out_QRCodes"
 FOLDER_LOG = f"{PATH_ROOT}/logs"
 FOLDER_TMP = f"{PATH_ROOT}/temp"
 OUTPUT_TAR_FILENAME = f"{PATH_ROOT}/temp/exFiles.tar.gz"
 FILE_LOG = "/qrEncoder_errors.log"
-
 # Récupérer le nom du programme Python en cours d'exécution
 nom_programme = os.path.basename(__file__)
 print(f"\n\033[1m\033[4mNom du programme: \033[32m {nom_programme}\033[0m \n")
 
 # variables paramétriques
-part_size = 2000  # Découpage : taille de datas/ QRcode (en octets) / 2930 max
+part_size = 4270  # Découpage : taille de datas/ QRcode (en octets) / 2953 max base64, 4296 base45
 
 def is_folder_exist(repertoire):
     try:
@@ -87,19 +88,19 @@ if __name__ == '__main__':
             #  Directement liée à la qualité de la correction d'erreur choisie (segno.make_qr)
             fileContent = f.read()
             #  Convertir les données du fichier ZIP en base64
-            fileContentBase64 = base64.b64encode(fileContent).decode("utf-8")
+            fileContentBase45 = base45.b45encode(fileContent).decode("utf-8")
             #  Découpage pour constituer les codes QR
-            list_parts = [fileContentBase64[i: i + part_size] for i in range(0, len(fileContentBase64), part_size)]
+            list_parts = [fileContentBase45[i: i + part_size] for i in range(0, len(fileContentBase45), part_size)]
 
         #  Génération des codes QR pour chaque partie
         qr_codes = []
         max_seq = len(list_parts)
         print(f"max_seq ==> {max_seq}")
         index = 0
-        for index, datas_b64 in enumerate(list_parts):
-            datas_b64_ind = ''
-            datas_b64_ind = f'{index+1}/{max_seq}\n{datas_b64}'
-            qr_codes.append(segno.make_qr(datas_b64_ind, mode="byte"))
+        for index, datas_b45 in enumerate(list_parts):
+            datas_b45_ind = ''
+            datas_b45_ind = f'{index+1}/{max_seq}{PATTERN_SEP}{datas_b45}'
+            qr_codes.append(segno.make_qr(datas_b45_ind, mode="alphanumeric"))
         #  Enregistrement des codes QR sous forme d'images PNG
         ind = 0
         for ind, qr_code in enumerate(qr_codes):

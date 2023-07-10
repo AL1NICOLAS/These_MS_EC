@@ -8,18 +8,21 @@
 
 import time
 import cv2
-import os
 from natsort import natsorted
 from pyzbar import pyzbar
 import pygame
 import logging
+import os
+from dotenv import load_dotenv
+load_dotenv()
+PATTERN_SEP = os.getenv("PATTERN_SEP")
 
 # Initialiser pygame
 pygame.mixer.init()
 # Charger le son du bip
 son_bip = pygame.mixer.Sound("./laserbip.wav")
 
-PATH_ROOT = "../."   # "/home/lanig/PycharmProjects/TheseProUttMS_EFC"
+PATH_ROOT = "../."   # "/home/lanig/PycharmProjects/These_MS_EC"
 FOLDER_QR = f"{PATH_ROOT}/out_QRCodes"
 FOLDER_LOG = f"{PATH_ROOT}/logs"
 FILE_LOG = "/qrAfficheurWithQRAck_errors.log"
@@ -45,7 +48,7 @@ def reader_qr_seq_aff(image_file):
             # Afficher les résultats
             if barcode.type == "QRCODE":  # sécurité contre les autres types que QRCODE (BARCODE)
                 print("Type code QR_ACQ lu:", barcode.type)
-                metadata_text, data = data_qr_aff.split('\n', 1)
+                metadata_text, data = data_qr_aff.split(PATTERN_SEP, 1)
                 # Affichage des données et des métadonnées
                 # print("Données du QR code :", data)
                 print("Métadonnées :", metadata_text)
@@ -88,7 +91,7 @@ def detector_qr_ack():
                         #  Positionnement délai (milliSec)
                         # cv2.waitKey(5)
                         #  Déplacer la fenêtre à un emplacement spécifique de l'écran
-                        # cv2.moveWindow("Device_BNPP_Lecture_des_QRCodes_ACK", 0, 0)  # Coordonnées x=100, y=100
+                        # cv2.moveWindow("Device_CORPORATE_SOURCE_Lecture_des_QRCodes_ACK", 0, 0)  # Coordonnées x=100, y=100
                         #  Positionnement délai (milliSec)
                         # cv2.waitKey(5)
                         return barcode.data.decode("utf-8")
@@ -111,7 +114,7 @@ if __name__ == '__main__':
         list_qr_files = natsorted(list_qr_files)
 
         # Initialiser la capture vidéo à partir de la webcam (0 --> webcam intégrée, 2 ou 4 pour webcams usb)
-        capture = cv2.VideoCapture(4)
+        capture = cv2.VideoCapture(6)
         # Parcourir les noms des fichiers QR code
         index = 0
         for index, qr_file in enumerate(list_qr_files):
@@ -122,13 +125,13 @@ if __name__ == '__main__':
             num_seq_aff = reader_qr_seq_aff(qr_code)
             # Attendre un court instant avant de passer au QR code suivant
             # Affichage du QRCode pour capture
-            cv2.imshow("Device_BNPP_Affichage_QR_code_datas_out", qr_code)
+            cv2.imshow("Device_CORPORATE_SOURCE_Affichage_QR_code_datas_out", qr_code)
             # Positionnement délai (milliSec)
-            cv2.waitKey(10)
+            cv2.waitKey(2)
             # Déplacer la fenêtre à un emplacement spécifique de l'écran
-            cv2.moveWindow("Device_BNPP_Affichage_QR_code_datas_out", 0, 200)  # Coordonnées x=100, y=100
+            cv2.moveWindow("Device_CORPORATE_SOURCE_Affichage_QR_code_datas_out", 0, 200)  # Coordonnées x=100, y=100
             # Positionnement délai (milliSec)
-            cv2.waitKey(50)
+            cv2.waitKey(100)
             while True:
                 num_seq_ack = " "
                 num_seq_ack = detector_qr_ack()
