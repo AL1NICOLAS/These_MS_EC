@@ -61,4 +61,3 @@ _Fin du traitement de décodage et ré-assemblage.
 
     Diagramme de séquence :
 ![exfiltrationDataPOCPres.jpg](Documentation%2FexfiltrationDataPOCPres.jpg)
-[ ]()
