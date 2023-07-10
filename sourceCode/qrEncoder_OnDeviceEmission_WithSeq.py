@@ -5,14 +5,16 @@
 #  Après avoir constitué une archive qui ensuite est compressée, le binaire
 #  du zip est encodé en base64. L'information base64 est découpée afin de générer
 #  autant de QRCodes que nécessaires :
-import base45
+import logging
+import os
 import shutil
 import tarfile
 import time
+
+import base45
 import segno
-import logging
-import os
 from dotenv import load_dotenv
+
 load_dotenv()
 PATTERN_SEP = os.getenv("PATTERN_SEP")
 # CONSTANTES environnement

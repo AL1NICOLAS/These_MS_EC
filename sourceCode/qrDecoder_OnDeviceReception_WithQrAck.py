@@ -9,18 +9,18 @@
 # Le QRCode véhicule son rang dans la collection.
 # Lorsque tous les QRCodes sont reçus, les datas sont concaténées et décodées de la base4 pour
 # restituer le payload binaire tar.gz.
-import base45
-from pyzbar import pyzbar
-import base64
+import logging
+import os
 import time
+from urllib.parse import quote
+
+import base45
 import cv2
 import pygame
 import segno
-import logging
-import os
-from urllib.parse import quote
-import os
 from dotenv import load_dotenv
+from pyzbar import pyzbar
+
 load_dotenv()
 PATTERN_SEP = os.getenv("PATTERN_SEP")
 

@@ -10,4 +10,4 @@ def generate_file(file_path, file_size):
             bytes_to_write -= len(data)
 
 # Appel de la fonction pour générer un fichier de 1 Mo
-generate_file('../in_files_to_exfiltrate/output.txt', 1024 * 1024)
+generate_file('../output.txt', 1024 * 1024)

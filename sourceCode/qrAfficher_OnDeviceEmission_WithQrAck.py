@@ -6,14 +6,16 @@
 #   - il est déclenché par la captation (lecture et décodage) d'un QRCode"ACK" généré et affiché
 #     par le programme décodeur sur le device attaquante
 
-import time
-import cv2
-from natsort import natsorted
-from pyzbar import pyzbar
-import pygame
 import logging
 import os
+import time
+
+import cv2
+import pygame
 from dotenv import load_dotenv
+from natsort import natsorted
+from pyzbar import pyzbar
+
 load_dotenv()
 PATTERN_SEP = os.getenv("PATTERN_SEP")
 
