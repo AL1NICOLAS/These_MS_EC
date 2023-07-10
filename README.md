@@ -60,5 +60,5 @@ _Fin du traitement de décodage et ré-assemblage.
 "[file:///home/user/PycharmProjects/These_MS_EC/decodedOut/datasLeakOut.tar.gz]()"
 
     Diagramme de séquence :
-![exfiltrationDataPOCPres.jpg](in_files_to_exfiltrate%2FexfiltrationDataPOCPres.jpg)
+![exfiltrationDataPOCPres.jpg](Documentation%2FexfiltrationDataPOCPres.jpg)
 [ ]()
