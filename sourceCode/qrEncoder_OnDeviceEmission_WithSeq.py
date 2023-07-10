@@ -1,10 +1,10 @@
-# =======================
-#  Author : Alain NICOLAS
-# =======================
+#  Author : Alain NICOLAS.
 #  Ce programme encode des datas à exfiltrer sous forme d'une collection de QRCodes.
-#  Après avoir constitué une archive qui ensuite est compressée, le binaire
-#  du zip est encodé en base64. L'information base64 est découpée afin de générer
-#  autant de QRCodes que nécessaires :
+#  Après avoir constitué une archive qui ensuite est compressée, le binaire du zip est encodé en base45.
+#  Le payload base45 est découpé en partie de 4270 caractères afin de générer autant de QRCodes que nécessaires.
+#  Chaque QRCode généré est flanqué en début de data
+#  - de l'information du numéro de la séquence / le nombre total de QrCodes produits.
+#       Ex : 1/6 suivi d'un séparateur %%::%% suivies des données base45
 import logging
 import os
 import shutil
