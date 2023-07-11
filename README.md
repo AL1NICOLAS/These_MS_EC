@@ -1,4 +1,4 @@
-# Projet These_MS_EC ==> POC Exfiltration de données via le vecteur QRCodes en environnement airgap.
+# Projet These_MS_EC ==> POC Exfiltration de données via le vecteur QRCodes en environnement air-gap.
 Auteur : Alain NICOLAS.
 
 Cet ensemble de **3** programmes python constitue la solution permettant de démontrer qu'il est possible d'exfiltrer
@@ -16,7 +16,7 @@ Ce programme encode des datas à exfiltrer sous forme d'une collection de QRCode
 Le collaborateur malveillant rassemble l'ensemble des documents dans le répertoire `"./../in_files_to_exfiltrate"`
 Après avoir constitué une archive qui ensuite est compressée "payload.tar.gz", le binaire
 du zip est encodé en base45. Le payload base45 est découpé en partie de 4270 caractères afin de générer
-autant de QRCodes que nécessaires. 
+autant de QRCodes que nécessaire. 
 Chaque QRCode généré est flanqué en début de data de l'information du numéro de la séquence / le nombre total
 de QrCodes produits.
 
@@ -46,6 +46,7 @@ du dernier qrcode du run d'exfiltration sans rupture de séquence.
 
 Ce programme est lancé en même temps que **le Programme 2 Afficheur** permet de lire et décoder les QrCodes 
 affichés par la device CORPORATE Source et contenant les données à exfiltrer.
+L'index de la webcam de la device MALVEILLANTE réceptrice est à positionner dans cv2.VideoCapture( ? )
 Lorsque que l'un des QRCodes est lu et décodé, la data en est extraite et mise en liste puis
 un QRCode d'acquittement contenant en data la séquence acquittée est généré et affiché
 dans le but d'être scanné, analysé et décodé par le Programme 2 Afficheur sur la device source 
