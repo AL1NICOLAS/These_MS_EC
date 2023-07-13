@@ -81,7 +81,7 @@ def make_qr_ack_pres(metadata_qr):
     # Génération du QR code
     qr_ack = segno.make_qr(metadata_qr, error="l")
     # Sauvegarde du QR code en fichier image
-    qr_ack.save(filename_ack_file_png, scale=8)
+    qr_ack.save(filename_ack_file_png, scale=10)
     while True:
         qr_code_ack = cv2.imread(filename_ack_file_png)
         cv2.imshow("Device_MALVEILLANTE_RECEPTRICE_Afficheur_QRCodes_ACK", qr_code_ack)
