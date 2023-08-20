@@ -62,3 +62,5 @@ _Fin du traitement de décodage et ré-assemblage.
 
     Diagramme de séquence :
 ![exfiltrationDataPOCPres.png](Documentation%2FexfiltrationDataPOCPres.png)
+
+Vous pouvez consulter la video de démonstration en suivant le lien https://www.youtube.com/watch?v=-LtkA9NyXDE ou en scannant ce code QR :![img.png](img.png)
